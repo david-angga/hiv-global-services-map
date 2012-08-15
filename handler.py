@@ -1,5 +1,6 @@
 import os
 import cgi
+import urllib2
 
 from google.appengine.ext import db
 from google.appengine.api import users

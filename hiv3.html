@@ -7,7 +7,8 @@
 <link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="/static/style.css" />
-
+<link rel="icon" href="/static/favicon.ico"/>
+<script type="text/javascript" src="/static/picup.2.1.js"></script>
 <script>
 var gl;
  
@@ -35,11 +36,39 @@ if (gl) {
 } else {
 }
 
+function picupLoader(){
+  window.name = "pageThree";
+  document.getElementById('is_mobile_ios').value = 'true';
+
+  Picup2.checkHash();
+
+  var url = window.location.host + '/3';
+  var faviconUrl = window.location.host + '/static/favicon.ico';
+
+  currentParams = {
+    'callbackURL': url,
+    'referrername': escape('HIV Global Services Map'),
+    'referrerfavicon': escape(faviconUrl),
+    'purpose': escape('Select your photo to be uploaded.'),
+    'debug': 'false',
+    'returnThumbnailDataURL': 'false',
+    'returnServerResponse': 'true'
+  }
+
+  Picup2.convertFileInput('photo', currentParams);
+}
+
+function checkMobileBrowser(){
+  if (Picup2.isMobileIOS()){
+    picupLoader();
+  }
+}
+
 </script>
 
 </head>
 
-<body>
+<body onload="checkMobileBrowser()">
 
 <div class="main">
 
@@ -77,7 +106,9 @@ if (gl) {
 <input name="website" type="edit"><br><br>
 
 <div class="label">Upload a photo:</div>
-<input name="photo" type="file"><br><br>
+<input name="photo" type="file" id="photo"><br><br>
+
+<input name="is_mobile_ios" id="is_mobile_ios" value="false" type="hidden">
 
 <div class="label">Are you a manager/employee at this facility?</div>
 <input type="radio" name="manager_employee" class="radio" value="yes" onClick="document.getElementById('optional_info').style.display = 'inline';">Yes</input><br>
