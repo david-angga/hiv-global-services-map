@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIV Global Services Map</title>
+<link href='http://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+
+<body>
+
+<div class="main">
+<form action="3" method="POST">
+
+<div class="label">What is the name of this facility?</div>
+<input name="facility_name" type="edit"><br><br>
+
+<div class="label">Identify primary service(s) offerred at this facility:</div>
+<div class="styled-select">
+<select name="primary_service">
+<option value="five">CHOOSE ONE. . . </option>
+{% for option in service_options %}
+<option value="{{ option.value }}">{{ option.display_name }}</option>
+{% endfor %}
+</select>
+</select>
+</div>
+
+<div class="label">Select the most appropriate description of this facility:</div>
+<div class="styled-select">
+<select name="facility_desc">
+<option value="five">CHOOSE ONE. . . </option>
+{% for option in description_options %}
+<option value="{{ option.value }}">{{ option.display_name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<div class="label">Select the primary group(s) that this facility serves:</div>
+<div class="styled-select">
+<select name="primary_group">
+<option value="five">CHOOSE ONE. . . </option>
+{% for option in group_options %}
+<option value="{{ option.value }}">{{ option.display_name }}</option>
+{% endfor %}
+</select>
+</div>
+
+<br>
+
+<input type="submit" class="submit" value="NEXT">
+
+</form>
+
+<br><br>
+<text class="initiative">This is an initiative of:</text><br>
+<text class="bchange">B-CHANGE FOUNDATION</text>
+</div>
+</body>
+</html>

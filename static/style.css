@@ -1,0 +1,96 @@
+body {
+  background-color:#333333;
+  font-family: 'Rationale', serif;
+  font-size: 22px;
+}
+
+.main {
+  border: 1px solid #ccc;
+  width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  background: url(banner.png) no-repeat top #ccc;
+  background-size: contain;
+  padding: 180px 3% 3% 3%;
+}
+
+input {
+   background: transparent;
+   font-size: inherit;
+   width: 215px;
+   padding: 5px;
+   color: #fff;
+   border: 1px solid #ccc;
+   background-color:#777;
+   height: 34px;
+  font-family: inherit;
+}
+
+textarea {
+   background: transparent;
+   width: 215px;
+   padding: 5px;
+   color: #fff;
+   border: 1px solid #ccc;
+   background-color:#777;
+   height: 90px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.radio {
+   background: transparent;
+   width: 28px;
+   padding: 1px;
+   vertical-align: middle;
+   text-align: left;
+   color: #fff;
+   border: 1px solid #ccc;
+   background-color:#777;
+   height: 30px;
+  font-family: inherit;
+}
+
+input.submit {
+   background: transparent;
+   width: 120px;
+   font-size: inherit;
+   padding: 5px;
+   border: 1px solid #ccc;
+   background-color:#880000;
+   height: 40px;
+}
+
+.label {
+  padding: 9px 0px;
+  width: 215px;
+}
+
+.styled-select {
+   width: 215px;
+   height: 34px;
+   overflow: hidden;
+   background: url(down_arrow_select.jpeg) no-repeat right #777;
+}
+
+.styled-select select {
+  font-family: inherit;
+   background: transparent;
+   width: 243px;
+   padding: 5px;
+   font-size: 18px;
+   font-weight: bold;
+   color: #fff;
+   border: 1px solid #ccc;
+   height: 34px;
+}
+
+.initiative {
+  font-size: 8pt;
+}
+
+.bchange {
+  font-family: 'Advent Pro', sans-serif;
+  font-size: 19pt;
+  letter-spacing: -1.5px;
+}

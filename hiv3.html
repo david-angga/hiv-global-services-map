@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIV Global Services Map</title>
+<link href='http://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+
+<script>
+var gl;
+ 
+function displayPosition(position) {
+  var lat = document.getElementById("latitude");
+  var lng = document.getElementById("longitude");
+  lat.value = position.coords.latitude;
+  lng.value = position.coords.longitude;
+}
+ 
+function displayError(positionError) {
+  alert("Could not determine location.");
+}
+ 
+try {
+  if (typeof navigator.geolocation === 'undefined'){
+    gl = google.gears.factory.create('beta.geolocation');
+  } else {
+    gl = navigator.geolocation;
+  }
+} catch(e) {}
+ 
+if (gl) {
+  gl.getCurrentPosition(displayPosition, displayError);
+} else {
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="main">
+
+<form action="handler" method="POST" enctype="multipart/form-data">
+
+{% for option in hidden_options %}
+<input type="hidden" name="{{ option.name }}" value="{{ option.value }}" />
+{% endfor %}
+
+<input name="latitude" id="latitude" type="hidden" />
+<input name="longitude" id="longitude" type="hidden" />
+
+<div class="label">Address Line 1:</div>
+<input name="add1" type="edit"><br><br>
+
+<div class="label">Address Line 2:</div>
+<input name="add2" type="edit"><br><br>
+
+<div class="label">City:</div>
+<input name="city" type="edit"><br><br>
+
+<div class="label">State/Province:</div>
+<input name="state" type="edit"><br><br>
+
+<div class="label">Country:</div>
+<input name="country" type="edit"><br><br>
+
+<div class="label">Zip/Postal Code:</div>
+<input name="postal" type="edit"><br><br>
+
+<div class="label">Telephone:</div>
+<input name="telephone" type="edit"><br><br>
+
+<div class="label">Website:</div>
+<input name="website" type="edit"><br><br>
+
+<div class="label">Upload a photo:</div>
+<input name="photo" type="file"><br><br>
+
+<div class="label">Are you a manager/employee at this facility?</div>
+<input type="radio" name="manager_employee" class="radio" value="yes" onClick="document.getElementById('optional_info').style.display = 'inline';">Yes</input><br>
+<input type="radio" name="manager_employee" class="radio" value="no" onClick="document.getElementById('optional_info').style.display = 'none';">No</input>
+
+<div id="optional_info" style="display: none">
+<div class="label">Contact Name:</div>
+<input name="contact_name" type="edit"><br><br>
+
+<div class="label">Email:</div>
+<input name="contact_email" type="edit"><br><br>
+
+<div class="label">Phone:</div>
+<input name="contact_phone" type="edit"><br><br>
+
+<div class="label">You may be contacted to verify the information submitted.</div>
+</div>
+
+<div class="label">Enter other information or feedback regarding this facility:</div>
+<textarea name="feedback"></textarea><br><br>
+
+
+<input type="submit" class="submit" value="SUBMIT">
+
+</form>
+
+<br><br>
+<text class="initiative">This is an initiative of:</text><br>
+<text class="bchange">B-CHANGE FOUNDATION</text>
+</div>
+</body>
+</html>

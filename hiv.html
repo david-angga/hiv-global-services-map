@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIV Global Services Map</title>
+<link href='http://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+
+<body>
+
+<div class="main">
+<form action="2" method="POST">
+
+<div class="label">Are any of the following services offered at this location?</div>
+<div class="styled-select">
+<select>
+<option value="five">CHOOSE ONE. . . </option>
+{% for option in service_options %}
+<option value="{{ option.value }}">{{ option.display_name }}</option>
+{% endfor %}
+</select>
+</div>
+<div class="label">
+<p>If yes, proceed to the next page.
+<p>If not, this location is not eligible for the HIV Global Services Map Project.
+<p>Please contact <a href="mailto:info@b-change.org">info@b-change.org</a> if you have further questions or concerns.</div>
+<input type="submit" class="submit" value="NEXT">
+
+</form>
+
+<br><br>
+<text class="initiative">This is an initiative of:</text><br>
+<text class="bchange">B-CHANGE FOUNDATION</text>
+</div>
+</body>
+</html>
