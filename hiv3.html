@@ -37,12 +37,11 @@ if (gl) {
 }
 
 function picupLoader(){
-  window.name = "pageThree";
-  document.getElementById('is_mobile_ios').value = 'true';
+  window.name = 'pageThree';
 
   Picup2.checkHash();
 
-  var url = window.location.host + '/3';
+  var url = window.location.host + '/callback_picup';
   var faviconUrl = window.location.host + '/static/favicon.ico';
 
   currentParams = {
@@ -61,6 +60,14 @@ function picupLoader(){
 function checkMobileBrowser(){
   if (Picup2.isMobileIOS()){
     picupLoader();
+  }
+}
+
+Picup2.callbackHandler = function(params){
+  //params['remoteFileURL'] => 'http://aaaa.jpg'
+  //params['status'] => 'Complete'
+  if(params['status'] === 'Complete'){
+    document.getElementById('image_url').value = params['remoteFileURL'];
   }
 }
 
@@ -108,7 +115,7 @@ function checkMobileBrowser(){
 <div class="label">Upload a photo:</div>
 <input name="photo" type="file" id="photo"><br><br>
 
-<input name="is_mobile_ios" id="is_mobile_ios" value="false" type="hidden">
+<input name="image_url" id="image_url" type="hidden">
 
 <div class="label">Are you a manager/employee at this facility?</div>
 <input type="radio" name="manager_employee" class="radio" value="yes" onClick="document.getElementById('optional_info').style.display = 'inline';">Yes</input><br>

@@ -147,6 +147,11 @@ class LocationEntryHandler(webapp.RequestHandler):
 
         if self.request.get('photo'):
             location.photo = db.Blob(images.resize(self.request.get('photo'), 500, 500))
+
+        if self.request.get('image_url'):
+            img = urllib2.urlopen(self.request.get('image_url')).read()
+            location.photo = db.Blob(images.resize(img), 500, 500)
+
         location.put()
         self.redirect('/4')
 
@@ -185,12 +190,18 @@ class PageFour(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'hiv4.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+class CallbackPicup(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'callback_picup.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))
+
 application = webapp.WSGIApplication([
   ('/', MainPage),
   ('/2', PageTwo),
   ('/3', PageThree),
   ('/4', PageFour),
-  ('/handler', LocationEntryHandler)
+  ('/handler', LocationEntryHandler),
+  ('/callback_picup', CallbackPicup)
 ])
 
 

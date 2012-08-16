@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIV Global Services Map</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link rel="icon" href="/static/favicon.ico"/>
+
+    <script type="text/javascript" src="/static/picup.2.1.js"></script>
+
+    <script type="text/javascript">
+      window.name = 'transactioncomplete';
+
+      var url = window.location.toString();
+      var delimiterPos = url.indexOf('#')
+      var params = ""
+      
+      if(delimiterPos != -1){
+        params = url.match(/\#(.+)/);
+      }else{
+        params = url.match(/\?(.+)/);
+      }
+
+      var paramOutput = [];
+      var paramHash = {}
+      var callbackURL = null;
+
+      // We know the name of the calling window
+      var windowName = 'pageThree';
+      if(params){
+        var paramString = params[1];
+        var paramKVs = paramString.split('&');
+        for(var p=0; p<paramKVs.length; p++){
+          var kvp = paramKVs[p];
+
+          // we only want to split on the first =, since data:URLs can have = in them
+          var kv = kvp.replace('=', '&').split('&');
+          var keyname = unescape(kv[0]);
+          var keyvalue = unescape(kv[1]);
+          paramHash[keyname] = keyvalue
+          paramOutput.push(keyname + ' = ' + keyvalue);
+        }
+
+        callbackURL = window.location.host + '/3' + paramString;
+      } 
+
+      function returnToOrigin(){
+        if (callbackURL){
+          window.open(unescape(escape(callbackURL)), windowName);
+        }
+        
+        //var me = window.open(window.location.href, window.name);
+        //me.close();
+        window.close();
+      }
+    </script>
+  </head>
+  <body onload="returnToOrigin()">
+    <div class="main">
+      <div class="label">
+        redirecting...
+      </div>
+    </div>
+  </body>
+</html>
