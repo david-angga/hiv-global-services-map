@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/static/style.css" />
 <link rel="icon" href="/static/favicon.ico"/>
 <script type="text/javascript" src="/static/picup.2.1.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmJE9KrYdmPiW16lAHDJOiCvS1Fwen7BU&sensor=true"></script>
 <script>
 var gl;
  
@@ -17,6 +18,62 @@ function displayPosition(position) {
   var lng = document.getElementById("longitude");
   lat.value = position.coords.latitude;
   lng.value = position.coords.longitude;
+
+  // Geocoder init
+  var geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(lat.value,lng.value);
+  
+  // Get result on reverse geocoder
+  geocoder.geocode({'latLng': latlng}, function(results, status){
+    if(status == google.maps.GeocoderStatus.OK){
+      populateAddressFields(results);
+    } else {
+      alert('Get location failed due to: ' + status);
+    }
+  });
+}
+
+// Populate address fields based on the geocoder results
+function populateAddressFields(params){
+  var add1 = ""; // street_number route
+  var add2 = ""; // sublocality
+  var city = ""; // locality
+  var state = ""; // administrative_area_level_1
+  var country = ""; // country
+  var postal = ""; // postal_code
+
+  for(var i=0; i < params[0].address_components.length; i++){
+    switch(params[0].address_components[i].types[0]){
+      case 'street_number':
+        add1 += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'route':
+        add1 += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'sublocality':
+        add2 += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'locality':
+        city += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'administrative_area_level_1':
+        state += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'country':
+        country += params[0].address_components[i].long_name + ' ';
+        break;
+      case 'postal_code':
+        postal += params[0].address_components[i].long_name + ' ';
+        break;
+    }
+  }
+
+  document.getElementById('add1').value = add1;
+  document.getElementById('add2').value = add2;
+  document.getElementById('state').value = state;
+  document.getElementById('city').value = city;
+  document.getElementById('country').value = country;
+  document.getElementById('postal').value = postal;
 }
  
 function displayError(positionError) {
@@ -36,6 +93,7 @@ if (gl) {
 } else {
 }
 
+// Picup init
 function picupLoader(){
   window.name = 'pageThree';
 
@@ -57,12 +115,14 @@ function picupLoader(){
   Picup2.convertFileInput('photo', currentParams);
 }
 
+// Check is the page is opened by an ios device or not
 function checkMobileBrowser(){
   if (Picup2.isMobileIOS()){
     picupLoader();
   }
 }
 
+// Handle the callback params
 Picup2.callbackHandler = function(params){
   //params['remoteFileURL'] => 'http://aaaa.jpg'
   //params['status'] => 'Complete'
@@ -89,22 +149,22 @@ Picup2.callbackHandler = function(params){
 <input name="longitude" id="longitude" type="hidden" />
 
 <div class="label">Address Line 1:</div>
-<input name="add1" type="edit"><br><br>
+<input name="add1" type="edit" id="add1"><br><br>
 
 <div class="label">Address Line 2:</div>
-<input name="add2" type="edit"><br><br>
+<input name="add2" type="edit" id="add2"><br><br>
 
 <div class="label">City:</div>
-<input name="city" type="edit"><br><br>
+<input name="city" type="edit" id="city"><br><br>
 
 <div class="label">State/Province:</div>
-<input name="state" type="edit"><br><br>
+<input name="state" type="edit" id="state"><br><br>
 
 <div class="label">Country:</div>
-<input name="country" type="edit"><br><br>
+<input name="country" type="edit" id="country"><br><br>
 
 <div class="label">Zip/Postal Code:</div>
-<input name="postal" type="edit"><br><br>
+<input name="postal" type="edit" id="postal"><br><br>
 
 <div class="label">Telephone:</div>
 <input name="telephone" type="edit"><br><br>
