@@ -10,6 +10,7 @@
 <link rel="icon" href="/static/favicon.ico"/>
 <script type="text/javascript" src="/static/picup.2.1.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmJE9KrYdmPiW16lAHDJOiCvS1Fwen7BU&sensor=true"></script>
+<script type="text/javascript" src="/static/application.js"></script>
 <script>
 var gl;
  
@@ -124,81 +125,143 @@ function checkMobileBrowser(){
 
 // Handle the callback params
 Picup2.callbackHandler = function(params){
-  //params['remoteFileURL'] => 'http://aaaa.jpg'
-  //params['status'] => 'Complete'
   if(params['status'] === 'Complete'){
     document.getElementById('image_url').value = params['remoteFileURL'];
+    setInputFields('photo_review',this.value);
   }
+}
+
+function populatePreviewPage(){
+  var primaryGroup = document.getElementById('primary_group').value;
+  var facilityDesc = document.getElementById('facility_desc').value;
+  var facilityName = document.getElementById('facility_name').value;
+  var primaryService = document.getElementById('primary_service').value;
+  
+  setInputFields('facility_name_review', facilityName);
+  
+  setDropDownListValue('primary_group_review', primaryGroup);
+  setDropDownListValue('facility_desc_review', facilityDesc);
+  setDropDownListValue('primary_service_review', primaryService);
+}
+
+function goToReview(){
+  window.location.href += '#review';
 }
 
 </script>
 
 </head>
 
-<body onload="checkMobileBrowser()">
+<body onload="checkMobileBrowser();populatePreviewPage();">
 
 <div class="main">
 
 <form action="handler" method="POST" enctype="multipart/form-data">
+  <div id="review_content" style="display:none">
+    <div class="label">
+      <p><a name="review">Please review your inputs before submitting.</a></p>
+    </div>
+  
+    <div class="label">Facility Name:</div>
+    <input type="edit" id="facility_name_review" onchange="setInputFields('facility_name',this.value)"><br><br>
 
-{% for option in hidden_options %}
-<input type="hidden" name="{{ option.name }}" value="{{ option.value }}" />
-{% endfor %}
+    <div class="label">Primary Service:</div>
+    <div class="styled-select">
+      <select name="primary_service_review" id="primary_service_review" onchange="setInputFields('primary_service',this.value)">
+        <option value="five">CHOOSE ONE. . . </option>
+        {% for option in service_options %}
+          <option value="{{ option.value }}">{{ option.display_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br>
 
-<input name="latitude" id="latitude" type="hidden" />
-<input name="longitude" id="longitude" type="hidden" />
+    <div class="label">Facility Description:</div>
+    <div class="styled-select">
+      <select name="facility_desc_review" id="facility_desc_review" onchange="setInputFields('facility_desc',this.value)">
+        <option value="five">CHOOSE ONE. . . </option>
+        {% for option in description_options %}
+          <option value="{{ option.value }}">{{ option.display_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br>
 
-<div class="label">Address Line 1:</div>
-<input name="add1" type="edit" id="add1"><br><br>
+    <div class="label">Primary Group:</div>
+    <div class="styled-select">
+      <select name="primary_group_review" id="primary_group_review" onchange="setInputFields('primary_group',this.value)">
+        <option value="five">CHOOSE ONE. . . </option>
+        {% for option in group_options %}
+          <option value="{{ option.value }}">{{ option.display_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br>
+  </div>
+  
+  {% for option in hidden_options %}
+  <input type="hidden" name="{{ option.name }}" id="{{ option.name }}" value="{{ option.value }}" />
+  {% endfor %}
 
-<div class="label">Address Line 2:</div>
-<input name="add2" type="edit" id="add2"><br><br>
+  <input name="latitude" id="latitude" type="hidden" />
+  <input name="longitude" id="longitude" type="hidden" />
 
-<div class="label">City:</div>
-<input name="city" type="edit" id="city"><br><br>
+  <div class="label">Address Line 1:</div>
+  <input name="add1" type="edit" id="add1" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">State/Province:</div>
-<input name="state" type="edit" id="state"><br><br>
+  <div class="label">Address Line 2:</div>
+  <input name="add2" type="edit" id="add2" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Country:</div>
-<input name="country" type="edit" id="country"><br><br>
+  <div class="label">City:</div>
+  <input name="city" type="edit" id="city" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Zip/Postal Code:</div>
-<input name="postal" type="edit" id="postal"><br><br>
+  <div class="label">State/Province:</div>
+  <input name="state" type="edit" id="state" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Telephone:</div>
-<input name="telephone" type="edit"><br><br>
+  <div class="label">Country:</div>
+  <input name="country" type="edit" id="country" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Website:</div>
-<input name="website" type="edit"><br><br>
+  <div class="label">Zip/Postal Code:</div>
+  <input name="postal" type="edit" id="postal" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Upload a photo:</div>
-<input name="photo" type="file" id="photo"><br><br>
+  <div class="label">Telephone:</div>
+  <input name="telephone" type="edit" id="telephone" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<input name="image_url" id="image_url" type="hidden">
+  <div class="label">Website:</div>
+  <input name="website" type="edit" id="website" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div class="label">Are you a manager/employee at this facility?</div>
-<input type="radio" name="manager_employee" class="radio" value="yes" onClick="document.getElementById('optional_info').style.display = 'inline';">Yes</input><br>
-<input type="radio" name="manager_employee" class="radio" value="no" onClick="document.getElementById('optional_info').style.display = 'none';">No</input>
+  <div class="label">Upload a photo:</div>
+  <input name="photo" type="file" id="photo" onchange="setInputFields(this.id + '_review',this.value)"><br><br>
 
-<div id="optional_info" style="display: none">
-<div class="label">Contact Name:</div>
-<input name="contact_name" type="edit"><br><br>
+  <input name="image_url" id="image_url" type="hidden" onchange="setInputFields('photo_review',this.value)">
 
-<div class="label">Email:</div>
-<input name="contact_email" type="edit"><br><br>
+  <div class="label">Are you a manager/employee at this facility?</div>
+  <input type="radio" name="manager_employee" class="radio" value="yes" onClick="document.getElementById('optional_info').style.display = 'inline';">Yes</input><br>
+  <input type="radio" name="manager_employee" class="radio" value="no" onClick="document.getElementById('optional_info').style.display = 'none';">No</input>
 
-<div class="label">Phone:</div>
-<input name="contact_phone" type="edit"><br><br>
+  <div id="optional_info" style="display: none">
+  <div class="label">Contact Name:</div>
+  <input name="contact_name" type="edit"><br><br>
 
-<div class="label">You may be contacted to verify the information submitted.</div>
-</div>
+  <div class="label">Email:</div>
+  <input name="contact_email" type="edit"><br><br>
 
-<div class="label">Enter other information or feedback regarding this facility:</div>
-<textarea name="feedback"></textarea><br><br>
+  <div class="label">Phone:</div>
+  <input name="contact_phone" type="edit"><br><br>
 
+  <div class="label">You may be contacted to verify the information submitted.</div>
+  </div>
 
-<input type="submit" class="submit" value="SUBMIT">
+  <div class="label">Enter other information or feedback regarding this facility:</div>
+  <textarea name="feedback" id="feedback" onchange="setInputFields(this.id + '_review',this.value)"></textarea><br><br>
+
+  <div id="review_button">
+    <input type="button" class="submit" value="REVIEW" onclick="setToggle('submit_content','on');setToggle('review_button', 'off');setToggle('review_content', 'on');goToReview()">
+  </div>
+
+  <div id="submit_content" style="display:none">
+    <input type="submit" class="submit" value="SUBMIT">
+  </div>
 
 </form>
 
