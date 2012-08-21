@@ -145,8 +145,12 @@ function populatePreviewPage(){
   setDropDownListValue('primary_service_review', primaryService);
 }
 
+// Scroll page to the review content
 function goToReview(){
-  window.location.href += '#review';
+  var reviewContent = document.getElementById('review_content');
+  if(reviewContent){
+    window.scroll(0,reviewContent.offsetTop);
+  }
 }
 
 </script>
