@@ -1,7 +1,12 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color:#333333;
   font-family: 'Rationale', serif;
   font-size: 22px;
+  height: 100%;
 }
 
 .main {
@@ -12,6 +17,14 @@ body {
   background: url(banner.png) no-repeat top #ccc;
   background-size: contain;
   padding: 180px 3% 3% 3%;
+}
+
+#map_canvas {
+  height: 500px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
 input {

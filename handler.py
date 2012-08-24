@@ -157,12 +157,21 @@ class LocationEntryHandler(webapp.RequestHandler):
 
 class MainPage(webapp.RequestHandler):
     def get(self):
+        locations = LocationEntry.all()
+        TEMPLATE_VALS.update ({
+          'locations': locations,
+        })
+        path = os.path.join(os.path.dirname(__file__), 'landing_page.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))
+        
+class PageOne(webapp.RequestHandler):
+    def get(self):
         path = os.path.join(os.path.dirname(__file__), 'hiv.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
 class PageTwo(webapp.RequestHandler):
     def get(self):
-        self.redirect('/')
+        self.redirect('/1')
     def post(self):
         path = os.path.join(os.path.dirname(__file__), 'hiv2.html')
         # Create a map here of everything in POST and have an array of KV pairs.
@@ -170,7 +179,7 @@ class PageTwo(webapp.RequestHandler):
 
 class PageThree(webapp.RequestHandler):
     def get(self):
-        self.redirect('/')
+        self.redirect('/1')
     def post(self):
         path = os.path.join(os.path.dirname(__file__), 'hiv3.html')
         TEMPLATE_VALS.update({
@@ -194,14 +203,25 @@ class CallbackPicup(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'callback_picup.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
+        
+class Image(webapp.RequestHandler):
+    def get(self):
+        location = db.get(self.request.get("img_id"))
+        if location.photo:
+            self.response.headers['Content-Type'] = "image/png"
+            self.response.out.write(location.photo)
+        else:
+            self.response.out.write("No Image")
 
 application = webapp.WSGIApplication([
   ('/', MainPage),
+  ('/1', PageOne),
   ('/2', PageTwo),
   ('/3', PageThree),
   ('/4', PageFour),
   ('/handler', LocationEntryHandler),
-  ('/callback_picup', CallbackPicup)
+  ('/callback_picup', CallbackPicup),
+  ('/img', Image)
 ])
 
 

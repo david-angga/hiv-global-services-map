@@ -35,3 +35,8 @@ function setToggle(elementId, toggle){
     document.getElementById(elementId).style.display = 'none';
   }
 }
+
+// Link to map page
+function goToMapPage(){
+  window.location.href = 'http://' + window.location.host + '/';
+}
