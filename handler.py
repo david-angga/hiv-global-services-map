@@ -163,12 +163,14 @@ class MainPage(webapp.RequestHandler):
         })
         path = os.path.join(os.path.dirname(__file__), 'landing_page.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
-        
+
+# Initial screening page for facility locations.
 class PageOne(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'hiv.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+# Page to enter facility type information and services offered.
 class PageTwo(webapp.RequestHandler):
     def get(self):
         self.redirect('/1')
@@ -177,6 +179,7 @@ class PageTwo(webapp.RequestHandler):
         # Create a map here of everything in POST and have an array of KV pairs.
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+# Address and contact information.
 class PageThree(webapp.RequestHandler):
     def get(self):
         self.redirect('/1')
@@ -194,6 +197,7 @@ class PageThree(webapp.RequestHandler):
                                     ] })
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+# Confirmation page for data submission.
 class PageFour(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'hiv4.html')
