@@ -40,3 +40,15 @@ function setToggle(elementId, toggle){
 function goToMapPage(){
   window.location.href = 'http://' + window.location.host + '/';
 }
+
+// Get response from theUrl
+function httpGet(theUrl){
+  var http = null;
+
+  http = new XMLHttpRequest();
+  http.open("GET", theUrl, false);
+  http.send();
+  
+  return http.responseText;
+}
+

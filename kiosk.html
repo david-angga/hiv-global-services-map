@@ -9,6 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmJE9KrYdmPiW16lAHDJOiCvS1Fwen7BU&sensor=true"></script>
+    <script type="text/javascript" src="/static/application.js"></script>
     <script type="text/javascript">
       var map;
       var gl;
@@ -80,6 +81,7 @@
       
       // Return facility description for infoWindow
       function getFacilityInformation(serviceDesc, completeAddress, locationName, locationPhoto){
+        var imageUrl;
         var completeDescription = '<b>'+locationName+'</b>';
         
         {% for description in service_options %}
@@ -88,7 +90,14 @@
           }
         {% endfor %}
         
-        completeDescription += '<br><img src="img?img_id='+ locationPhoto +'" width=50% height=50%/><br><small>'+completeAddress+'</small>';
+        imageUrl = httpGet('img?img_id='+ locationPhoto);
+
+        // Check if location has a photo
+        if (imageUrl.match(/PNG/)){
+          completeDescription += '<br><img src="/img?img_id='+ locationPhoto +'" width=50% height=50%>';
+        }
+        
+        completeDescription += '<br><small>'+ completeAddress +'</small>';
         
         return completeDescription;
       }
