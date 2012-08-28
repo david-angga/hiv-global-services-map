@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/static/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIV Global Services Map</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link href='http://fonts.googleapis.com/css?family=Average' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Advent+Pro:100' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmJE9KrYdmPiW16lAHDJOiCvS1Fwen7BU&sensor=true"></script>
+    <script type="text/javascript">
+      var map;
+      var gl;
+      
+      try {
+        if (typeof navigator.geolocation === 'undefined'){
+          gl = google.gears.factory.create('beta.geolocation');
+        } else {
+          gl = navigator.geolocation;
+        }
+      } catch(e) {}
+    
+      function showMap(position) {
+        // Show a map centered at (position.coords.latitude, position.coords.longitude).
+        var latLng;
+        var marker;
+        var infoWindow; 
+        var mapOptions = {
+          center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+          zoom: 3,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        
+        // Loop all the locations on datastore
+        {% for location in locations %}
+          {% if location.latitude %}
+            latLng = new google.maps.LatLng({{location.latitude}}, {{location.longitude}});
+            marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+              {% if location.facility_name %}
+                ,title: '{{location.facility_name}}'
+              {% endif %}
+            });
+            
+            infoWindow = new google.maps.InfoWindow();
+            
+            // Show info window onclick
+            google.maps.event.addListener(marker, 'click', (function setInfoWindow(marker){
+              return function(){
+                infoWindow.setPosition(latLng);
+                infoWindow.setContent(getFacilityInformation('{{location.primary_service}}', '{{location.add1}} {{location.add2}}', '{{location.facility_name}}', '{{location.key}}'));
+                infoWindow.open(map, marker); 
+              }    
+            })(marker));
+          {% endif %}
+        {% endfor %}
+      }
+      
+      function displayError(positionError) {
+        alert("Could not determine location.");
+      }
+      
+      function initMap() {
+        if (gl) {
+          gl.getCurrentPosition(showMap, displayError);
+        } else {
+          alert("Get location error.");
+        }
+      }
+      
+      google.maps.event.addDomListener(window, 'load', initMap);
+      
+      function goToPageOne(){
+        window.location.href += "1"
+      }
+      
+      // Return facility description for infoWindow
+      function getFacilityInformation(serviceDesc, completeAddress, locationName, locationPhoto){
+        var completeDescription = '<b>'+locationName+'</b>';
+        
+        {% for description in service_options %}
+          if (serviceDesc == '{{description.value}}') {
+            completeDescription += '<br>{{description.display_name}}';
+          }
+        {% endfor %}
+        
+        completeDescription += '<br><img src="img?img_id='+ locationPhoto +'" width=50% height=50%/><br><small>'+completeAddress+'</small>';
+        
+        return completeDescription;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="main" style="width:80%; padding:3%; background:#ccc">
+      <div id="map_canvas"></div>
+      <br><br>
+      <text class="initiative">This is an initiative of:</text><br>
+      <text class="bchange">B-CHANGE FOUNDATION</text>
+    </div>
+  </body>
+</html>

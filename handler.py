@@ -203,6 +203,16 @@ class PageFour(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'hiv4.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+# Kiosk-style display page for all facility locations.
+class KioskPage(webapp.RequestHandler):
+    def get(self):
+        locations = LocationEntry.all()
+        TEMPLATE_VALS.update ({
+          'locations': locations,
+        })
+        path = os.path.join(os.path.dirname(__file__), 'kiosk.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))        
+
 class CallbackPicup(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'callback_picup.html')
@@ -223,6 +233,7 @@ application = webapp.WSGIApplication([
   ('/2', PageTwo),
   ('/3', PageThree),
   ('/4', PageFour),
+  ('/kiosk', KioskPage),
   ('/handler', LocationEntryHandler),
   ('/callback_picup', CallbackPicup),
   ('/img', Image)
