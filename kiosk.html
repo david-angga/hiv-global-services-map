@@ -52,8 +52,15 @@
             // Show info window onclick
             google.maps.event.addListener(marker, 'click', (function setInfoWindow(marker){
               return function(){
+                // Check if photo is None
+                {% if location.photo %}
+                  var photoExist = 1;
+                {% else %}
+                  var photoExist = 0;
+                {% endif %}
+                
                 infoWindow.setPosition(latLng);
-                infoWindow.setContent(getFacilityInformation('{{location.primary_service}}', '{{location.add1}} {{location.add2}}', '{{location.facility_name}}', '{{location.key}}'));
+                infoWindow.setContent(getFacilityInformation('{{location.primary_service}}', '{{location.add1}} {{location.add2}}', '{{location.facility_name}}', '{{location.key}}', photoExist));
                 infoWindow.open(map, marker); 
               }    
             })(marker));
@@ -80,7 +87,7 @@
       }
       
       // Return facility description for infoWindow
-      function getFacilityInformation(serviceDesc, completeAddress, locationName, locationPhoto){
+      function getFacilityInformation(serviceDesc, completeAddress, locationName, locationPhoto, isPhotoExist){
         var imageUrl;
         var completeDescription = '<b>'+locationName+'</b>';
         
@@ -89,11 +96,9 @@
             completeDescription += '<br>{{description.display_name}}';
           }
         {% endfor %}
-        
-        imageUrl = httpGet('img?img_id='+ locationPhoto);
 
         // Check if location has a photo
-        if (imageUrl.match(/PNG/)){
+        if (isPhotoExist == 1){
           completeDescription += '<br><img src="/img?img_id='+ locationPhoto +'" width=50% height=50%>';
         }
         
