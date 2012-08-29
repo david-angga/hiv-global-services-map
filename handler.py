@@ -40,6 +40,8 @@ TEMPLATE_VALS = {
                           'display_name': 'Psychosocial support: support groups and counselling' },
                         { 'value': 'orphans',
                           'display_name': 'Orphans and vulnerable children: care, support and protection' },
+                        { 'value': 'comprehensive_hs',
+                          'display_name': 'Comprehensive HIV Services'}
                         ],
     'description_options': [{ 'value': 'public_clinic',
                               'display_name': 'Public clinic' },
@@ -82,6 +84,8 @@ TEMPLATE_VALS = {
                         'display_name': 'Young people' },
                       { 'value': 'prisoners',
                         'display_name': 'Prisoners or people in detention' },
+                      { 'value': 'all_people',
+                        'display_name': 'All people most-at-risk of HIV'}
                       ],
     }
 
