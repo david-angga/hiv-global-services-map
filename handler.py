@@ -159,6 +159,15 @@ class LocationEntryHandler(webapp.RequestHandler):
         location.put()
         self.redirect('/4')
 
+class IndexPage(webapp.RequestHandler):
+  def get(self):
+    locations = LocationEntry.all()
+    TEMPLATE_VALS.update ({
+      'locations': locations,
+    })
+    path = os.path.join(os.path.dirname(__file__), 'index.html')
+    self.response.out.write(template.render(path, TEMPLATE_VALS))
+
 class MainPage(webapp.RequestHandler):
     def get(self):
         locations = LocationEntry.all()
@@ -232,6 +241,7 @@ class Image(webapp.RequestHandler):
             self.response.out.write("No Image")
 
 application = webapp.WSGIApplication([
+  ('/', IndexPage),
   ('/index_ori', MainPage),
   ('/1', PageOne),
   ('/2', PageTwo),
