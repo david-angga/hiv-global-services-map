@@ -232,7 +232,7 @@ class Image(webapp.RequestHandler):
             self.response.out.write("No Image")
 
 application = webapp.WSGIApplication([
-  ('/', MainPage),
+  ('/index_ori', MainPage),
   ('/1', PageOne),
   ('/2', PageTwo),
   ('/3', PageThree),
