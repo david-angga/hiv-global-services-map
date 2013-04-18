@@ -23,16 +23,31 @@
 <script src="/static/layerslider/js/layerslider.kreaturamedia.jquery.js" type="text/javascript"></script>
 <script src="/static/js/isotope/jquery.isotope.min.js"></script>
 <script src="/static/js/isotope/Isotope-Filtering.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmJE9KrYdmPiW16lAHDJOiCvS1Fwen7BU&sensor=true"></script>
 <script type="text/javascript">
-                        $(document).ready(function(){
-                          $('#layerslider').layerSlider({
-                            skinsPath : '/static/layerslider/skins/',
-                            /*globalBGColor : '#333',
-                            yourLogo      : 'http://kreaturamedia.com/static/img/kmlogo.png',
-                            yourLogoStyle   : 'position: absolute; z-index: 1001; left: -30px; top: -30px; height: 100px;'*/
-                          });
-                        });   
-                    </script>
+  var gl;
+      
+  try {
+    if (typeof navigator.geolocation === 'undefined'){
+      gl = google.gears.factory.create('beta.geolocation');
+    } else {
+      gl = navigator.geolocation;
+    }
+  } catch(e) {}
+
+  gl.getCurrentPosition(function (position){
+    // TBA: HIVGSM-7 Request for share location to user
+  });
+
+  $(document).ready(function(){
+    $('#layerslider').layerSlider({
+      skinsPath : '/static/layerslider/skins/',
+      /*globalBGColor : '#333',
+      yourLogo      : 'http://kreaturamedia.com/static/img/kmlogo.png',
+      yourLogoStyle   : 'position: absolute; z-index: 1001; left: -30px; top: -30px; height: 100px;'*/
+    });
+  });   
+</script>
 <!--Toggle Menu-->
 <script type="text/javascript">
       $(function() {
