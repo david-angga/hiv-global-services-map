@@ -81,6 +81,8 @@ function showMap(position, zoomValue, mapElement){
   return map;
 }
 
+var infoWindow;
+
 // Marked on locations along with the info window
 function showMarker(map, latitude, longitude, titleName, infoContent){
   var latLng = new google.maps.LatLng(latitude, longitude);
@@ -90,10 +92,11 @@ function showMarker(map, latitude, longitude, titleName, infoContent){
     title: titleName
   });
   
-  var infoWindow = new google.maps.InfoWindow();
-  
   google.maps.event.addListener(marker, 'click', (function setInfoWindow(marker){
     return function(){
+      if(infoWindow){infoWindow.close();}
+      
+      infoWindow = new google.maps.InfoWindow();
       infoWindow.setPosition(latLng);
       infoWindow.setContent(infoContent);
       infoWindow.open(map, marker); 
