@@ -82,15 +82,19 @@ function showMap(position, zoomValue, mapElement){
 }
 
 var infoWindow;
+var locationCounter = 65;
 
 // Marked on locations along with the info window
 function showMarker(map, latitude, longitude, titleName, infoContent){
   var latLng = new google.maps.LatLng(latitude, longitude);
-  var marker = new google.maps.Marker({
+  var marker = new StyledMarker({styleIcon:new StyledIcon(StyledIconTypes.MARKER,{color:"ff7A7A",text:String.fromCharCode(locationCounter)}),position:latLng,map:map});
+  locationCounter += 1;
+  if(locationCounter == 90) {locationCounter = 65}
+  /*var marker = new google.maps.Marker({
     position: latLng,
     map: map,
     title: titleName
-  });
+  });*/
   
   google.maps.event.addListener(marker, 'click', (function setInfoWindow(marker){
     return function(){
