@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<title>HIVGSM - Video Gallery</title>
+<script src="/static/js/jquery.js" type="text/javascript"/></script>
+<script src="/static/js/jquery.mobile-1.0.min.js" type="text/javascript"/></script>
+<!--Menu-->
+<script type="text/javascript" src="/static/js/menu/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/static/js/menu/app.js"></script>
+<link rel="stylesheet" href="/static/css/menu/main.css?v=31" />
+<link href="/static/css/layout.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/>
+<link href="/static/photoswipe/photoswipe.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/static/photoswipe/lib/klass.min.js"></script>
+<script type="text/javascript" src="/static/photoswipe/code.photoswipe-3.0.4.min.js"></script>
+<script type="text/javascript">
+    (function(window, PhotoSwipe){
+      document.addEventListener('DOMContentLoaded', function(){
+        var
+          options = {},
+          instance = PhotoSwipe.attach( window.document.querySelectorAll('#Gallery a'), options );
+      }, false);
+    }(window, window.Code.PhotoSwipe));
+  </script>
+<!--Toggle Menu-->
+<script type="text/javascript">
+      $(function() {
+        $('#navigation').click(function() {
+          $('.navigation').slideToggle('fast');
+          return false;
+        });
+      });
+</script>
+<!--ToTop-->
+<script type="text/javascript" src="/static/js/totop/totop.js"></script>
+<script type="text/javascript" src="/static/js/totop/jquery_004.js"></script>
+</head>
+<body>
+<!-- Left Side Slide Area Starts -->
+<!-- Social Network Icons Starts -->
+<div id="social-icons">
+  <ul>
+            <li><a href="#"><img src="/static/images/social/icon-facebook.png" alt="" border="0"/></a></li>
+            <li><a href="#"><img src="/static/images/social/icon-twitter.png" alt="" border="0"/></a></li>
+            <li><a href="#"><img src="/static/images/social/icon-fliker.png" alt="" border="0"/></a></li>
+            <li><a href="#"><img src="/static/images/social/icon-tumblr.png" alt="" border="0"/></a></li>
+  </ul>
+</div>
+<!-- Social Network Icons Starts -->
+<div class="clear"></div>
+<!-- Menu Starts -->
+<div id="menu">
+  <ul>
+    <li><a href="/kiosk" class="contentLink" rel="external"><span><img src="/static/images/icon-map.png" alt="" border="0"/></span>Location</a></li>
+    <li><a href="/" class="contentLink" rel="external"><span><img src="/static/images/icon-home.png" alt="" border="0"/></span>Home </a></li>
+    <li><a href="about-us.html" class="contentLink" rel="external"><span><img src="/static/images/icon-about-us.png" alt="" border="0"/></span>About us</a></li>
+    <li><a href="services.html" class="contentLink" rel="external"><span><img src="/static/images/icon-services.png" alt="" border="0"/></span>Services</a></li>
+    <li><a href="our-team.html" class="contentLink" rel="external"><span><img src="/static/images/icon-team.png" alt="" border="0"/></span>Team</a></li>
+    <li><a href="blog.html" class="contentLink" rel="external"><span><img src="/static/images/icon-blog.png" alt="" border="0"/></span>Blog</a></li>
+    <li><a href="video-gallery.html" class="contentLink" rel="external"><span><img src="/static/images/icon-videos.png" alt="" border="0"/></span>Videos Gallery</a></li>
+    <li><a href="portfolio.html" class="contentLink" rel="external"><span><img src="/static/images/icon-portfolio.png" alt="" border="0"/></span>Pictures Gallery</a></li>
+    <li><a href="typography.html" class="contentLink" rel="external"><span><img src="/static/images/icon-typography.png" alt="" border="0"/></span>Typography</a></li>
+<li><a href="typography-sliders.html" class="contentLink" rel="external"><span><img src="/static/images/icon-typography-slider.png" alt="" border="0"/></span>Sliders</a></li>
+    <li><a href="testimonials.html" class="contentLink" rel="external"><span><img src="/static/images/icon-testimonials.png" alt="" border="0"/></span>Testimonials</a></li>
+    <li><a href="contact.php" class="contentLink" rel="external"><span><img src="/static/images/icon-contact-us.png" alt="" border="0"/></span>Contact us</a></li>
+  </ul>
+</div>
+<!-- Menu Ends -->
+<!-- Left Side Slide Area Ends -->
+<div data-role="page" data-theme="a" id="portfolio">
+  <!--Header Starts -->
+  <div id="header">
+    <div class="strip">
+      <!--Logo and Icons-->
+      <div class="icons f_left" >
+        <a href="#" class="showMenu"><img src="/static/images/icon-menu.png" alt="Menu" border="0"/></a>
+      </div>
+      <span><a href="index.html" rel="external"><img src="/static/images/logo.png" alt="Logo" width="196" height="38"/></a></span>
+      <div class="icons f_right">
+        <a href="#" data-transition="slide" data-icon="arrow-l" data-direction="reverse" data-rel="back"><img src="/static/images/icon-back.png" alt="back" border="0"/></a>
+      </div>
+      <!--/Logo and Icons-->
+    </div>
+    <div class="clear">
+       &nbsp;
+    </div>
+  </div>
+  <!-- /Header -->
+  <div class="clear">
+  </div>
+  <div data-role="content">
+    <h2>Youtube Video</h2>
+     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa <strong>strong</strong>.<br><br>
+    
+    <div class="videoWrapper">
+<iframe src="http://www.youtube.com/embed/1iIZeIy7TqM?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+</div>
+  </div>
+  <!-- /Contents -->
+  <div class="clear">
+  </div>
+  <div id="footer">
+    <div class="strip">
+      <strong>Envato</strong><br>
+       PO Box 21177 <br>
+       Little Lonsdale St, Melbourne <br>
+       Victoria 8011 Australia<br>
+      <br>
+      <div class="f_left">
+        <img src="/static/images/icon-footer-phone.png" alt="" border="0"/>
+      </div>
+      <div class="f_left">
+         +61 (0) 3 8376 6284
+      </div>
+      <br>
+      <div class="clear">
+      </div>
+      <div class="f_left">
+        <img src="/static/images/icon-footer-contacts.png" alt="" border="0"/>
+      </div>
+      <div class="f_left">
+        <a href="mailto:abc@abc.com" target="_blank">abc@abc.com</a>
+      </div>
+      <br>
+      <br>
+       © 2012 Mobile Theme | <a href="privacy-policy.html" rel="external">Privacy Policy</a>
+      <br>
+      <br>
+      <!--ToTop Starts-->
+      <div id="scroll-to-top">
+        <a href="#top" id="top-link"><img src="/static/images/to-top.png" alt="" border="0"/></a>
+      </div>
+      <!--ToTop Ends-->
+    </div>
+  </div>
+</div>
+<!-- /footer -->
+</div>
+<!-- / page -->
+</body>
+</html>

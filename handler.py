@@ -240,6 +240,16 @@ class Image(webapp.RequestHandler):
         else:
             self.response.out.write("No Image")
 
+class VideoGallery(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'video_gallery.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))
+
+class DetailVideo(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'detail_video.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))
+
 application = webapp.WSGIApplication([
   ('/', IndexPage),
   ('/index_ori', MainPage),
@@ -250,7 +260,9 @@ application = webapp.WSGIApplication([
   ('/kiosk', KioskPage),
   ('/handler', LocationEntryHandler),
   ('/callback_picup', CallbackPicup),
-  ('/img', Image)
+  ('/img', Image),
+  ('/video_gallery', VideoGallery),
+  ('/detail_video', DetailVideo)
 ])
 
 
