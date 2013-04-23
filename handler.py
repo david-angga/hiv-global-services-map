@@ -255,6 +255,11 @@ class Services(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'services.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))
 
+class Teams(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'teams.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS))        
+
 application = webapp.WSGIApplication([
   ('/', IndexPage),
   ('/index_ori', MainPage),
@@ -268,7 +273,8 @@ application = webapp.WSGIApplication([
   ('/img', Image),
   ('/video_gallery', VideoGallery),
   ('/detail_video', DetailVideo),
-  ('/services', Services)
+  ('/services', Services),
+  ('/teams', Teams)
 ])
 
 
