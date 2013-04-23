@@ -270,6 +270,16 @@ class Blog(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'blog.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS))    
 
+class Typography(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'typography.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS)) 
+
+class Testimonials(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'testimonials.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS)) 
+
 application = webapp.WSGIApplication([
   ('/', IndexPage),
   ('/index_ori', MainPage),
@@ -286,7 +296,9 @@ application = webapp.WSGIApplication([
   ('/services', Services),
   ('/teams', Teams),
   ('/team_detail', TeamDetail),
-  ('/blog', Blog)
+  ('/blog', Blog),
+  ('/typography', Typography),
+  ('/testimonials', Testimonials)
 ])
 
 
