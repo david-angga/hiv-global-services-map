@@ -280,6 +280,16 @@ class Testimonials(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'testimonials.html')
         self.response.out.write(template.render(path, TEMPLATE_VALS)) 
 
+class TestimonialsDetail(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'testimonials_detail.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS)) 
+
+class ContactUs(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'contact_us.html')
+        self.response.out.write(template.render(path, TEMPLATE_VALS)) 
+
 application = webapp.WSGIApplication([
   ('/', IndexPage),
   ('/index_ori', MainPage),
@@ -298,7 +308,9 @@ application = webapp.WSGIApplication([
   ('/team_detail', TeamDetail),
   ('/blog', Blog),
   ('/typography', Typography),
-  ('/testimonials', Testimonials)
+  ('/testimonials', Testimonials),
+  ('/testimonials_detail', TestimonialsDetail),
+  ('/contact', ContactUs)
 ])
 
 
